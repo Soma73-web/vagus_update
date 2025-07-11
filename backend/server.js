@@ -21,7 +21,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "https://vagus.vercel.app",
-  "https://vag-rho.vercel.app",
+  "https://vagus-update.vercel.app",
 ];
 
 // Add production domains

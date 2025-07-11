@@ -1,5 +1,5 @@
 const path = require('path');
-const GalleryImage = require('../models/GalleryImage');
+const { GalleryImage } = require('../models'); // ✅ Correct import from initialized models
 
 // GET all gallery items
 exports.getAllGalleryItems = async (_req, res) => {

@@ -1,5 +1,4 @@
-// controllers/testimonialController.js
-const Testimonial = require('../models/Testimonial');
+const { Testimonial } = require('../models'); // ✅ Correct import
 
 // GET all testimonials
 exports.getAllTestimonials = async (req, res) => {

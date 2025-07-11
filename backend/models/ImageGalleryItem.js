@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       categoryId: {
         type: DataTypes.INTEGER,
-        references: { model: "categories", key: "id" }, // Reference correct table
         allowNull: false,
+        references: { model: "gallery_categories", key: "id" }, // ✅ Ensure table name is correct
       },
       image: { type: DataTypes.TEXT("long"), allowNull: false },
     },
     {
-      tableName: "gallery_imagees", // Use your actual images table name here
+      tableName: "gallery_imagees", // ✅ Confirm your actual table name spelling in DB
       timestamps: false,
     },
   );

@@ -1,4 +1,4 @@
-const Result = require('../models/Result');
+const { Result } = require('../models'); // ✅ Correct import from initialized models
 
 // Get all results (excluding image blob)
 exports.getAllResults = async (req, res) => {
@@ -21,9 +21,7 @@ exports.getResultImage = async (req, res) => {
       return res.status(404).json({ error: 'Image not found' });
     }
 
-    // Send image with correct content type
-    const contentType = result.image_type || 'image/jpeg';
-    res.set('Content-Type', contentType);
+    res.set('Content-Type', result.image_type || 'image/jpeg');
     res.send(result.image);
   } catch (err) {
     console.error('Error fetching result image:', err);

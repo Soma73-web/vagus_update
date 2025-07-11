@@ -1,5 +1,4 @@
-const GalleryCategory = require('../models/GalleryCategory');
-const ImageGalleryItem = require('../models/ImageGalleryItem');
+const { GalleryCategory, ImageGalleryItem } = require('../models'); // ✅ Correct import
 
 exports.getCategoriesWithImages = async (req, res) => {
   try {
@@ -9,7 +8,7 @@ exports.getCategoriesWithImages = async (req, res) => {
     });
     res.json(categories);
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching categories with images:', err);
     res.status(500).json({ message: 'Server error fetching gallery' });
   }
 };
@@ -31,7 +30,7 @@ exports.uploadImage = async (req, res) => {
 
     res.status(201).json(newImage);
   } catch (err) {
-    console.error(err);
+    console.error('Error uploading image:', err);
     res.status(500).json({ message: 'Server error uploading image' });
   }
 };
@@ -45,7 +44,7 @@ exports.deleteImage = async (req, res) => {
     await image.destroy();
     res.json({ message: 'Image deleted successfully' });
   } catch (err) {
-    console.error(err);
+    console.error('Error deleting image:', err);
     res.status(500).json({ message: 'Server error deleting image' });
   }
 };

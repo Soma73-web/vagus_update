@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       mimeType: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "image/jpeg", // You can change or remove default if needed
+        defaultValue: "image/jpeg",
       },
     },
     {

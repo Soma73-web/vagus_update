@@ -1,5 +1,5 @@
 const path = require('path');
-const Download = require('../models/Download');
+const { Download } = require('../models'); // ✅ Import from initialized models
 
 // GET all download items
 exports.getAllDownloads = async (_req, res) => {

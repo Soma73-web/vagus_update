@@ -1,4 +1,4 @@
-const Slider = require('../models/Slider');
+const { Slider } = require('../models');
 
 // Upload image
 exports.uploadImage = async (req, res) => {

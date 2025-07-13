@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../api'; // Axios instance
+import React, { useEffect, useState } from "react";
+import api from "../../api"; // Axios instance
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { showSuccess, showError } from "../../utils/notifications";
 
 const SliderAdmin = () => {
   const [images, setImages] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Fetch all slider images
   const fetchImages = async () => {
     try {
-      const { data } = await api.get('/api/slider');
+      const { data } = await api.get("/api/slider");
       setImages(data || []);
     } catch (err) {
-      console.error('Failed to fetch images:', err);
-      alert('Failed to load slider images.');
+      console.error("Failed to fetch images:", err);
+      alert("Failed to load slider images.");
     }
   };
 
@@ -31,40 +35,45 @@ const SliderAdmin = () => {
   // Upload selected file
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return alert('Please select an image first.');
+    if (!selectedFile) return alert("Please select an image first.");
 
     try {
       const fd = new FormData();
-      fd.append('photo', selectedFile);
+      fd.append("photo", selectedFile);
 
-      await api.post('/api/slider', fd);
+      await api.post("/api/slider", fd);
       setSelectedFile(null);
       setPreview(null);
       fetchImages();
     } catch (err) {
-      console.error('Upload failed:', err);
-      alert('Failed to upload image.');
+      console.error("Upload failed:", err);
+      alert("Failed to upload image.");
     }
   };
 
   // Delete image by ID
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this image?')) return;
+    if (!window.confirm("Delete this image?")) return;
 
     try {
       await api.delete(`/api/slider/${id}`);
       fetchImages();
     } catch (err) {
-      console.error('Delete failed:', err);
-      alert('Failed to delete image.');
+      console.error("Delete failed:", err);
+      alert("Failed to delete image.");
     }
   };
 
   return (
     <div className="bg-white p-4 rounded shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-blue-800">Manage Slider Images</h3>
+      <h3 className="text-lg font-semibold mb-4 text-blue-800">
+        Manage Slider Images
+      </h3>
 
-      <form onSubmit={handleUpload} className="flex flex-wrap items-center gap-4 mb-6">
+      <form
+        onSubmit={handleUpload}
+        className="flex flex-wrap items-center gap-4 mb-6"
+      >
         <input
           type="file"
           accept="image/*"
@@ -81,7 +90,11 @@ const SliderAdmin = () => {
 
       {preview && (
         <div className="mb-4">
-          <img src={preview} alt="Preview" className="h-24 rounded shadow mx-auto" />
+          <img
+            src={preview}
+            alt="Preview"
+            className="h-24 rounded shadow mx-auto"
+          />
         </div>
       )}
 

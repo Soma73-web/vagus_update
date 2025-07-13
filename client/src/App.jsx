@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SiteLoader from "./components/SiteLoader";
 import ErrorBoundary from "./components/ErrorBoundary";
+import authManager from "./utils/auth";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToHash from "./components/ScrollToHash";
+import WhatsAppButton from "./components/WhatsAppButton";
+import AIChatbot from "./components/AIChatbot";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Homepage Components
 import HomeSlider from "./components/HomeSlider";
@@ -34,10 +40,13 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
+    // Setup auth manager interceptors
+    authManager.setupAxiosInterceptors();
+
+    // Optimize loading time for better UX
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
@@ -51,6 +60,8 @@ function App() {
       <Router>
         <ScrollToHash />
         <Header />
+        <WhatsAppButton />
+        <AIChatbot />
 
         <Routes>
           <Route
@@ -91,13 +102,33 @@ function App() {
           <Route path="/directors-message" element={<DirectorsMessage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/about" element={<About />} />
           <Route path="/results" element={<ResultsPage />} />
           <Route path="/student-login" element={<StudentLogin />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
         </Routes>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </Router>
     </ErrorBoundary>
   );

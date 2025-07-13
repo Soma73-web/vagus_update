@@ -6,8 +6,10 @@ const SiteLoader = () => {
       <div className="text-center">
         {/* Logo placeholder or institute name */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-blue-600 mb-2">VAGUS</h1>
-          <p className="text-gray-600">Excellence in Education</p>
+          <h1 className="text-4xl font-bold text-blue-600 mb-2">
+            NEET Academy
+          </h1>
+          <p className="text-gray-600">Excellence in Medical Education</p>
         </div>
 
         {/* Animated loader */}

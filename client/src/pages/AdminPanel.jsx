@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import authManager from "../utils/auth";
 import ResultAdmin from "./admin/ResultAdmin";
 import GalleryAdmin from "./admin/GalleryAdmin";
 import GalleryAdminn from "./admin/GalleryAdminn";
@@ -8,12 +10,14 @@ import SliderAdmin from "./admin/SliderAdmin";
 import StudentAdmin from "./admin/StudentAdmin";
 import AttendanceAdmin from "./admin/AttendanceAdmin";
 import TestResultAdmin from "./admin/TestResultAdmin";
+import EventAdmin from "./admin/EventAdmin";
 
 const TABS = [
   { id: "slider", label: "Slider", component: <SliderAdmin /> },
   { id: "students", label: "Students", component: <StudentAdmin /> },
   { id: "attendance", label: "Attendance", component: <AttendanceAdmin /> },
   { id: "test-results", label: "Test Results", component: <TestResultAdmin /> },
+  { id: "events", label: "Events", component: <EventAdmin /> },
   { id: "results", label: "Results", component: <ResultAdmin /> },
   { id: "gallery", label: "Gallery", component: <GalleryAdmin /> },
   {
@@ -31,11 +35,39 @@ const TABS = [
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("slider");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const isAuthenticated = await authManager.verifyToken();
+      if (!isAuthenticated) {
+        navigate("/admin-login");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    verifyAuth();
+  }, [navigate]);
 
   const renderTabContent = () => {
     const tab = TABS.find((t) => t.id === activeTab);
     return tab?.component || null;
   };
+
+  const handleLogout = () => {
+    authManager.removeToken();
+    navigate("/admin-login");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg">Verifying authentication...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24 px-4 sm:px-6 max-w-6xl mx-auto">
@@ -64,10 +96,7 @@ const AdminPanel = () => {
       {/* Logout Button */}
       <div className="flex justify-end mt-8">
         <button
-          onClick={() => {
-            localStorage.removeItem("admin_logged_in");
-            window.location.href = "/admin-login";
-          }}
+          onClick={handleLogout}
           className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
         >
           Logout

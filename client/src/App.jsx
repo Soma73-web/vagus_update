@@ -56,6 +56,7 @@ function App() {
       <Router>
         <ScrollToHash />
         <Header />
+        <WhatsAppButton />
 
         <Routes>
           <Route

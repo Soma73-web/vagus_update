@@ -58,6 +58,7 @@ function App() {
         <ScrollToHash />
         <Header />
         <WhatsAppButton />
+        <AIChatbot />
 
         <Routes>
           <Route

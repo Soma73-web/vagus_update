@@ -122,23 +122,34 @@ const SliderAdmin = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {images.map((img) => (
-          <div key={img.id} className="relative">
-            <img
-              src={`${api.defaults.baseURL}/api/slider/image/${img.id}`} // ✅ full image URL
-              alt="Slider"
-              className="w-full h-32 object-cover rounded shadow"
-            />
-            <button
-              onClick={() => handleDelete(img.id)}
-              className="absolute top-1 right-1 bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700"
-            >
-              ×
-            </button>
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center py-8">
+          <LoadingSpinner size="lg" text="Loading images..." />
+        </div>
+      ) : images.length === 0 ? (
+        <div className="text-center py-8 text-gray-500">
+          <p>No slider images found. Upload your first image above.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {images.map((img) => (
+            <div key={img.id} className="relative group">
+              <img
+                src={`${api.defaults.baseURL}/api/slider/image/${img.id}`}
+                alt="Slider"
+                className="w-full h-32 object-cover rounded shadow transition-transform group-hover:scale-105"
+              />
+              <button
+                onClick={() => handleDelete(img.id)}
+                className="absolute top-1 right-1 bg-red-600 text-white text-xs px-2 py-1 rounded hover:bg-red-700 opacity-75 group-hover:opacity-100 transition-opacity"
+                title="Delete image"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

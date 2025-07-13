@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToHash from "./components/ScrollToHash";
 import WhatsAppButton from "./components/WhatsAppButton";
+import AIChatbot from "./components/AIChatbot";
 
 // Homepage Components
 import HomeSlider from "./components/HomeSlider";

@@ -13,11 +13,14 @@ const SliderAdmin = () => {
   // Fetch all slider images
   const fetchImages = async () => {
     try {
+      setLoading(true);
       const { data } = await api.get("/api/slider");
       setImages(data || []);
     } catch (err) {
       console.error("Failed to fetch images:", err);
-      alert("Failed to load slider images.");
+      showError("Failed to load slider images.");
+    } finally {
+      setLoading(false);
     }
   };
 

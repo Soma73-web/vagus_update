@@ -35,6 +35,9 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Setup auth manager interceptors
+    authManager.setupAxiosInterceptors();
+
     // Simulate loading time
     const timer = setTimeout(() => {
       setLoading(false);

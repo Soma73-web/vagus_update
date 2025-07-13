@@ -40,10 +40,10 @@ function App() {
     // Setup auth manager interceptors
     authManager.setupAxiosInterceptors();
 
-    // Simulate loading time
+    // Optimize loading time for better UX
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);

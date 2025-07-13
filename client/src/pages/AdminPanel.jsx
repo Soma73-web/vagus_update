@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import authManager from "../utils/auth";
 import ResultAdmin from "./admin/ResultAdmin";
 import GalleryAdmin from "./admin/GalleryAdmin";
 import GalleryAdminn from "./admin/GalleryAdminn";
@@ -8,6 +10,7 @@ import SliderAdmin from "./admin/SliderAdmin";
 import StudentAdmin from "./admin/StudentAdmin";
 import AttendanceAdmin from "./admin/AttendanceAdmin";
 import TestResultAdmin from "./admin/TestResultAdmin";
+import EventAdmin from "./admin/EventAdmin";
 
 const TABS = [
   { id: "slider", label: "Slider", component: <SliderAdmin /> },

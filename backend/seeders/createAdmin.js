@@ -1,4 +1,5 @@
-const { Admin } = require("../models");
+const db = require("../models");
+const Admin = db.Admin;
 require("dotenv").config();
 
 const createInitialAdmin = async () => {

@@ -17,6 +17,7 @@ const TABS = [
   { id: "students", label: "Students", component: <StudentAdmin /> },
   { id: "attendance", label: "Attendance", component: <AttendanceAdmin /> },
   { id: "test-results", label: "Test Results", component: <TestResultAdmin /> },
+  { id: "events", label: "Events", component: <EventAdmin /> },
   { id: "results", label: "Results", component: <ResultAdmin /> },
   { id: "gallery", label: "Gallery", component: <GalleryAdmin /> },
   {
@@ -34,6 +35,21 @@ const TABS = [
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("slider");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const isAuthenticated = await authManager.verifyToken();
+      if (!isAuthenticated) {
+        navigate("/admin-login");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    verifyAuth();
+  }, [navigate]);
 
   const renderTabContent = () => {
     const tab = TABS.find((t) => t.id === activeTab);

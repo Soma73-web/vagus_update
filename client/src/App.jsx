@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SiteLoader from "./components/SiteLoader";
 import ErrorBoundary from "./components/ErrorBoundary";
 import authManager from "./utils/auth";

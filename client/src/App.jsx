@@ -7,6 +7,7 @@ import authManager from "./utils/auth";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToHash from "./components/ScrollToHash";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 // Homepage Components
 import HomeSlider from "./components/HomeSlider";

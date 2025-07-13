@@ -102,7 +102,14 @@ function App() {
           <Route path="/directors-message" element={<DirectorsMessage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/about" element={<About />} />
           <Route path="/results" element={<ResultsPage />} />

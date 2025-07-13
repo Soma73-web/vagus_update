@@ -98,9 +98,17 @@ const SliderAdmin = () => {
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          disabled={uploading || !selectedFile}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          Upload
+          {uploading ? (
+            <>
+              <LoadingSpinner size="sm" color="white" />
+              Uploading...
+            </>
+          ) : (
+            "Upload Image"
+          )}
         </button>
       </form>
 

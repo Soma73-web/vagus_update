@@ -68,14 +68,15 @@ const SliderAdmin = () => {
 
   // Delete image by ID
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this image?")) return;
+    if (!window.confirm("Are you sure you want to delete this image?")) return;
 
     try {
       await api.delete(`/api/slider/${id}`);
-      fetchImages();
+      showSuccess("Image deleted successfully!");
+      await fetchImages();
     } catch (err) {
       console.error("Delete failed:", err);
-      alert("Failed to delete image.");
+      showError("Failed to delete image.");
     }
   };
 

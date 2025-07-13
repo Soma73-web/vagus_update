@@ -56,6 +56,19 @@ const AdminPanel = () => {
     return tab?.component || null;
   };
 
+  const handleLogout = () => {
+    authManager.removeToken();
+    navigate("/admin-login");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-lg">Verifying authentication...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-24 px-4 sm:px-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
@@ -83,10 +96,7 @@ const AdminPanel = () => {
       {/* Logout Button */}
       <div className="flex justify-end mt-8">
         <button
-          onClick={() => {
-            localStorage.removeItem("admin_logged_in");
-            window.location.href = "/admin-login";
-          }}
+          onClick={handleLogout}
           className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
         >
           Logout

@@ -38,19 +38,31 @@ const SliderAdmin = () => {
   // Upload selected file
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return alert("Please select an image first.");
+    if (!selectedFile) {
+      showError("Please select an image first.");
+      return;
+    }
 
     try {
+      setUploading(true);
       const fd = new FormData();
       fd.append("photo", selectedFile);
 
       await api.post("/api/slider", fd);
       setSelectedFile(null);
       setPreview(null);
-      fetchImages();
+
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) fileInput.value = "";
+
+      showSuccess("Image uploaded successfully!");
+      await fetchImages();
     } catch (err) {
       console.error("Upload failed:", err);
-      alert("Failed to upload image.");
+      showError("Failed to upload image.");
+    } finally {
+      setUploading(false);
     }
   };
 

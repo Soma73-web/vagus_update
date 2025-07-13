@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const { Admin } = require("../models");
+const db = require("../models");
+const Admin = db.Admin;
 const authMiddleware = require("../middleware/authMiddleware");
 require("dotenv").config();
 
